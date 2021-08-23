@@ -23,11 +23,12 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
 ![alt text](https://github.com/DasithEdirisinghe/glb2usdz/blob/11a23816cad5be481677774e478c261dcf06623b/img/awsarchi.jpg?raw=true)
 
 
-    * API Gateway -> SQS -> Lambda -> (s3,dynamodb,EFS)
 
-    * API gateway is used to send a message to SQS (This can be done using an update API)
+   * API Gateway -> SQS -> Lambda -> (s3,dynamodb,EFS)
 
-    * Sample SQS message format:
+   * API gateway is used to send a message to SQS (This can be done using an update API)
+
+   * Sample SQS message format:
 
 ```javascript
     {
@@ -35,7 +36,7 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
         "table": "dynamodbtable",
         "s3modelPath": "s3dir/xxxxxxx.glb",
         "s3modelPathUsdz": "s3dir/yyyyyyy.usdz",
-        "modelPathUsdz": "clodfront/yyyyyyy.usdz",
+        "modelPathUsdz": "cloudfronturl/yyyyyyy.usdz",
         "designId": "zzzzzzzzzzz",
         "userId": "xyzxyzxyz",
         "s3modelPathId": "xxxxxxx"
