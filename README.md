@@ -1,74 +1,116 @@
-# Project name
+# glb2usdz
 
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
-![GitHub repo size](https://img.shields.io/github/repo-size/scottydocs/README-template.md)
-![GitHub contributors](https://img.shields.io/github/contributors/scottydocs/README-template.md)
-![GitHub stars](https://img.shields.io/github/stars/scottydocs/README-template.md?style=social)
-![GitHub forks](https://img.shields.io/github/forks/scottydocs/README-template.md?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/scottydocs?style=social)
+![GitHub repo size](https://img.shields.io/github/repo-size/DasithEdirisinghe/glb2usdz)
 
-Project name is a `<utility/tool/feature>` that allows `<insert_target_audience>` to do `<action/task_it_does>`.
+Project is based on glb -> usdz convertion which use [This](https://github.com/google/usd_from_gltf#compatibility) google c++ library under the hood and this is focusing on building the convertion system on top of the AWS Lambda using the [AWS Lambda Container Image Support](https://aws.amazon.com/blogs/aws/new-for-aws-lambda-container-image-support/).
 
-Additional line of information text about what the project does. Your introduction should be around 2 or 3 sentences. Don't go overboard, people won't read it.
+Read [my article](https://towardsaws.com/create-a-docker-container-image-with-custom-lambda-runtime-c1c73944d87e) to get a basic idea about the AWS container image support
+
+### What is glb(or gltf)
+
+glTF is a transmission format for 3D assets that is well suited to the web and mobile devices by removing data that is not important for efficient display of assets. USD is an interchange format that can be used for file editing in Digital Content Creation tools.
 
 ## Prerequisites
 
-Before you begin, ensure you have met the following requirements:
-<!--- These are just example requirements. Add, duplicate or remove as required --->
-* You have installed the latest version of `<coding_language/dependency/requirement_1>`
-* You have a `<Windows/Linux/Mac>` machine. State which OS is supported/which is not.
-* You have read `<guide/link/documentation_related_to_project>`.
+* AWS account
 
-## Installing <project_name>
+* EC2 instance:
+    * c4 x2large is recommended with 16 GB of storage
+    * Install Docker
 
-To install <project_name>, follow these steps:
+* Following AWS architecture is used here
 
-Linux and macOS:
+![alt text](https://github.com/DasithEdirisinghe/glb2usdz/blob/11a23816cad5be481677774e478c261dcf06623b/img/awsarchi.jpg?raw=true)
+
+
+
+   * API Gateway -> SQS -> Lambda -> (s3,dynamodb,EFS)
+
+   * API gateway is used to send a message to SQS (This can be done using an update API)
+
+   * Sample SQS message format:
+
+```javascript
+    {
+        "bucket": "s3bucket",
+        "table": "dynamodbtable",
+        "s3modelPath": "s3dir/xxxxxxx.glb",
+        "s3modelPathUsdz": "s3dir/yyyyyyy.usdz",
+        "modelPathUsdz": "cloudfronturl/yyyyyyy.usdz",
+        "designId": "zzzzzzzzzzz",
+        "userId": "xyzxyzxyz",
+        "s3modelPathId": "xxxxxxx"
+      }
 ```
-<install_command>
+
+* SQS will trigger the lambda function
+
+* Configure and setup the AWS resources according to the above architecture
+
+## Using <glb2usdz>
+
+* ssh in to the ec2 instance and configure
+
+* Clone the project
+
+```bash
+git clone git@github.com:DasithEdirisinghe/glb2usdz.git
+```
+  
+* project has two main files:
+
+    * Dockerfile:
+        * Based on the [this](https://hub.docker.com/repository/docker/dasithdev/usd-from-gltf) docker image
+        * server.lambdaHandler will invoke when the lambda function is triggered
+
+    * server.js
+
+        Do four main use cases:
+
+        * Download a glb file from the S3 bucket
+        * Convert it into the usdz format
+        * Upload the usdz file to the s3 bucket
+        * Update the dynamodb table
+
+* Then CD to the glb2usdz/src directory and follow these steps
+
+```bash
+sudo apt-get install -y \
+    g++ \
+    make \
+    cmake \
+    unzip \
+    libcurl4-openssl-dev
+
+npm install
+
+sudo docker login --username AWS --password $(aws ecr get-login-password --region REGION) xxxxxxxxxxx.dkr.ecr.REGION.amazonaws.com
+
+sudo docker build -t ECR_REPO:tag .
+
+sudo docker tag ECR_REPO:tag xxxxxxxxxxx.dkr.ecr.REGION.amazonaws.com/ECR_REPO:tag
+
+sudo docker push xxxxxxxxxxx.dkr.REGION.amazonaws.com/ECR_REPO:tag
 ```
 
-Windows:
-```
-<install_command>
-```
-## Using <project_name>
+* Make sure to change REGION, ECR_REPO as well as the xxxxxxxxxx 
 
-To use <project_name>, follow these steps:
+* Then Create a Lambda function using container image
+* Deploy the Docker Image you pushed into the ECR_REPO, to the Lambda function
 
-```
-<usage_example>
-```
-
-Add run commands and examples you think users will find useful. Provide an options reference for bonus points!
-
-## Contributing to <project_name>
-<!--- If your README is long or you have some specific process or steps you want contributors to follow, consider creating a separate CONTRIBUTING.md file--->
-To contribute to <project_name>, follow these steps:
-
-1. Fork this repository.
-2. Create a branch: `git checkout -b <branch_name>`.
-3. Make your changes and commit them: `git commit -m '<commit_message>'`
-4. Push to the original branch: `git push origin <project_name>/<location>`
-5. Create the pull request.
-
-Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
 ## Contributors
 
 Thanks to the following people who have contributed to this project:
 
-* [@scottydocs](https://github.com/scottydocs) 📖
-* [@cainwatson](https://github.com/cainwatson) 🐛
-* [@calchuchesta](https://github.com/calchuchesta) 🐛
-
-You might want to consider using something like the [All Contributors](https://github.com/all-contributors/all-contributors) specification and its [emoji key](https://allcontributors.org/docs/en/emoji-key).
+* [@DasithEdirisinghe](https://github.com/DasithEdirisinghe) 📖
 
 ## Contact
 
-If you want to contact me you can reach me at <your_email@address.com>.
+If you want to contact me you can reach me at <udasith@gmail.com>.
 
 ## License
 <!--- If you're not sure which open license to use see https://choosealicense.com/--->
 
-This project uses the following license: [<license_name>](<link>).
+This project uses the following license: [MIT LICENSE](https://github.com/DasithEdirisinghe/glb2usdz/blob/6ffb307ccc8b0cde9a16e8a0b3f16a55538289c3/LICENSE).
