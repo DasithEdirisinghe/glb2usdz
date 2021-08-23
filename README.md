@@ -1,7 +1,7 @@
 # glb2usdz
 
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
-![GitHub repo size](https://img.shields.io/github/repo-size/DasithEdirisinghe/glb2usdz)
+![GitHub repo size](https://img.shields.io/github/repo-size/DasithEdirisinghe/glb2usdz?style=for-the-badge)
 
 Project is based on glb -> usdz convertion which use [This](https://github.com/google/usd_from_gltf#compatibility) google c++ library under the hood and this is focusing on building the convertion system on top of the AWS Lambda using the [AWS Lambda Container Image Support](https://aws.amazon.com/blogs/aws/new-for-aws-lambda-container-image-support/).
 
