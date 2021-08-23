@@ -106,9 +106,7 @@ Thanks to the following people who have contributed to this project:
 
 * [@DasithEdirisinghe](https://github.com/DasithEdirisinghe) 📖
 
-## Contact
-
-![Twitter](https://img.shields.io/twitter/url?style=for-the-badge&url=https%3A%2F%2Ftwitter.com%2FDasith_dev)
+## Contact ![Twitter](https://img.shields.io/twitter/follow/Dasith_dev?style=for-the-badge)
    
 If you want to contact me you can reach me at <udasith@gmail.com>.
 
