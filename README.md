@@ -84,7 +84,7 @@ sudo docker push xxxxxxxxxxx.dkr.REGION.amazonaws.com/ECR_REPO:tag
 
 * Make sure to change REGION, ECR_REPO as well as the xxxxxxxxxx 
 
-* Then Create a lambda function using container image and deploy the image you pushed into the ECR_REPO 
+* Then Create a lambda function using container image and deploy the image you pushed into the ECR_REPO into the Lambda function
 
 
 ## Contributors
