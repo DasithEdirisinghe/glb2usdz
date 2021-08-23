@@ -100,4 +100,4 @@ If you want to contact me you can reach me at <udasith@gmail.com>.
 ## License
 <!--- If you're not sure which open license to use see https://choosealicense.com/--->
 
-This project uses the following license: [<MIT>](<https://github.com/DasithEdirisinghe/glb2usdz/blob/6ffb307ccc8b0cde9a16e8a0b3f16a55538289c3/LICENSE>).
+This project uses the following license: [MIT LICENSE](https://github.com/DasithEdirisinghe/glb2usdz/blob/6ffb307ccc8b0cde9a16e8a0b3f16a55538289c3/LICENSE).
