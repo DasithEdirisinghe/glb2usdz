@@ -20,6 +20,9 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
 
 * Following AWS architecture is used here
 
+![alt text](https://github.com/DasithEdirisinghe/glb2usdz/img/dev/awsarchi.jpg?raw=true)
+
+
     * API Gateway -> SQS -> Lambda -> (s3,dynamodb,EFS)
 
     * API gateway is used to send a message to SQS (This can be done using an update API)
@@ -61,8 +64,8 @@ git clone git@github.com:DasithEdirisinghe/glb2usdz.git
 
         Does main use cases:
 
-        * Download a glb file from S3 bucket
-        * Convert it to Usdz format
+        * Download a glb file from the S3 bucket
+        * Convert it into the usdz format
         * Upload the usdz file to the s3 bucket
         * Update the dynamodb table
 
