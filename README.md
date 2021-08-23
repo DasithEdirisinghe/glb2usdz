@@ -17,6 +17,7 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
 
 * EC2 instance:
     * c4 x2large is recommended with 16 GB of storage
+    * Install Docker
 
 * Following AWS architecture is used here
 
@@ -43,7 +44,9 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
       }
 ```
 
-* Then SQS will trigger the lambda function
+* SQS will trigger the lambda function
+
+* Configure and setup the AWS resources according to the above architecture
 
 ## Using <glb2usdz>
 
@@ -55,7 +58,7 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
 git clone git@github.com:DasithEdirisinghe/glb2usdz.git
 ```
   
-* <glb2usdz> project has two main files:
+* project has two main files:
 
     * Dockerfile:
         * Based on the [this](https://hub.docker.com/repository/docker/dasithdev/usd-from-gltf) docker image
@@ -63,7 +66,7 @@ git clone git@github.com:DasithEdirisinghe/glb2usdz.git
 
     * server.js
 
-        Does four main use cases:
+        Do four main use cases:
 
         * Download a glb file from the S3 bucket
         * Convert it into the usdz format
@@ -73,6 +76,15 @@ git clone git@github.com:DasithEdirisinghe/glb2usdz.git
 * Then CD to the glb2usdz directory and follow these steps
 
 ```bash
+sudo apt-get install -y \
+    g++ \
+    make \
+    cmake \
+    unzip \
+    libcurl4-openssl-dev
+
+npm install
+
 sudo docker login --username AWS --password $(aws ecr get-login-password --region REGION) xxxxxxxxxxx.dkr.ecr.REGION.amazonaws.com
 
 sudo docker build -t ECR_REPO:tag .
