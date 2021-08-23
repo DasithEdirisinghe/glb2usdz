@@ -38,7 +38,8 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
         "s3modelPathId": "xxxxxxx"
       }
 ```
-    * Then SQS will trigger the lambda function
+
+* Then SQS will trigger the lambda function
 
 ## Using <glb2usdz>
 
