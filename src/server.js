@@ -43,11 +43,11 @@ exports.lambdaHandler = async (event) => {
 
       await downloadFile(bucket, s3modelPath, s3modelPathId, s3);
 
-      const { stderr } = spawnSync('usd_from_gltf', [`/mnt/access/${s3modelPathId}.glb`, `/mnt/access/${s3modelPathId}.usdz`], spawn_option_glb2usdzconvertion);
+      const {} = spawnSync('usd_from_gltf', [`/mnt/access/${s3modelPathId}.glb`, `/mnt/access/${s3modelPathId}.usdz`], spawn_option_glb2usdzconvertion);
 
       await uploadFile(`/mnt/access/${s3modelPathId}.usdz`, s3modelPathUsdz, bucket, s3);
 
-      const { } = spawnSync('rm', ['-r', `${s3modelPathId}*`], spawn_option);
+      const {} = spawnSync('rm', ['-r', `${s3modelPathId}*`], spawn_option);
 
       await updateUsdz(table, userId, designId, modelPathUsdz);
 
@@ -111,7 +111,7 @@ async function uploadFile(filename, s3path, bucket, s3) {
   };
   const command = new PutObjectCommand(params);
 
-  const res = await s3.send(command);
+  await s3.send(command);
 };
 
 
@@ -132,5 +132,5 @@ async function updateUsdz(table, userId, designId, modelPathUsdz) {
   const clientdb = new DynamoDBClient({ region: "REGION" });
   const commanddb = new UpdateItemCommand(inputdb);
 
-  const res = await clientdb.send(commanddb);
+  await clientdb.send(commanddb);
 }
