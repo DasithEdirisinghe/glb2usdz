@@ -122,7 +122,7 @@ async function updateUsdz(table, userId, designId, modelPathUsdz) {
       'pk': `USER#${userId}`,
       'sk': `DESIGN#${designId}`
     }),
-    UpdateExpression: 'set sceneInfo.modelPathUsdz = :modelPathUsdz',
+    UpdateExpression: 'set modelPathUsdz = :modelPathUsdz',
     ExpressionAttributeValues: marshall({
       ':modelPathUsdz': modelPathUsdz
 
