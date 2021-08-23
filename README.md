@@ -20,7 +20,7 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
 
 * Following AWS architecture is used here
 
-![alt text](https://github.com/DasithEdirisinghe/glb2usdz/img/dev/awsarchi.jpg?raw=true)
+![alt text](https://github.com/DasithEdirisinghe/glb2usdz/blob/11a23816cad5be481677774e478c261dcf06623b/img/awsarchi.jpg?raw=true)
 
 
     * API Gateway -> SQS -> Lambda -> (s3,dynamodb,EFS)
