@@ -19,7 +19,6 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
     * c4 x2large is recommended with 16 GB of storage
 
 * Following AWS architecture is used here
-    [img/awsarchi.jpg]
 
     * API Gateway -> SQS -> Lambda -> (s3,dynamodb,EFS)
 
@@ -27,6 +26,7 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
 
     * Sample SQS message format:
 
+```javascript
     {
         "bucket": "s3bucket",
         "table": "dynamodbtable",
@@ -37,7 +37,7 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
         "userId": "xyzxyzxyz",
         "s3modelPathId": "xxxxxxx"
       }
-
+```
     * Then SQS will trigger the lambda function
 
 ## Using <glb2usdz>
@@ -51,21 +51,21 @@ git clone git@github.com:DasithEdirisinghe/glb2usdz.git
 ```
   
 * <glb2usdz> project has two main files:
-    * Dockerfile
-    * server.js
 
     * Dockerfile:
         * Based on the [this](https://hub.docker.com/repository/docker/dasithdev/usd-from-gltf) docker image
         * server.lambdaHandler will invoke when the lambda function is triggered
 
     * server.js
+
         Does main use cases:
+
         * Download a glb file from S3 bucket
         * Convert it to Usdz format
         * Upload the usdz file to the s3 bucket
         * Update the dynamodb table
 
-* cd to the glb2usdz directory and follow these steps
+* Then CD to the glb2usdz directory and follow these steps
 
 ```bash
 sudo docker login --username AWS --password $(aws ecr get-login-password --region REGION) xxxxxxxxxxx.dkr.ecr.REGION.amazonaws.com
