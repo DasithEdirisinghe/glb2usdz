@@ -73,7 +73,7 @@ git clone git@github.com:DasithEdirisinghe/glb2usdz.git
         * Upload the usdz file to the s3 bucket
         * Update the dynamodb table
 
-* Then CD to the glb2usdz directory and follow these steps
+* Then CD to the glb2usdz/src directory and follow these steps
 
 ```bash
 sudo apt-get install -y \
