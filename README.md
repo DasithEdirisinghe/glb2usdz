@@ -63,7 +63,7 @@ git clone git@github.com:DasithEdirisinghe/glb2usdz.git
 
     * server.js
 
-        Does main use cases:
+        Does four main use cases:
 
         * Download a glb file from the S3 bucket
         * Convert it into the usdz format
