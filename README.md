@@ -3,7 +3,11 @@
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
 ![GitHub repo size](https://img.shields.io/github/repo-size/DasithEdirisinghe/glb2usdz)
 
+<<<<<<< Updated upstream
 Project is based on glb -> usdz convertion which use [This](https://github.com/google/usd_from_gltf#compatibility) google c++ library under the hood and this is focusing on building the convertion system on top of the AWS Lambda using the [AWS Lambda Container Image Support](https://aws.amazon.com/blogs/aws/new-for-aws-lambda-container-image-support/).
+=======
+Project is based on glb -> usdz convertion which use [This](https://github.com/google/usd_from_gltf#compatibility) google c++ library under the hood and this project focuses on building the convertion system on top of the AWS Lambda using the [AWS Lambda Container Image Support](https://aws.amazon.com/blogs/aws/new-for-aws-lambda-container-image-support/).
+>>>>>>> Stashed changes
 
 Read [my article](https://towardsaws.com/create-a-docker-container-image-with-custom-lambda-runtime-c1c73944d87e) to get a basic idea about the AWS container image support
 
@@ -24,12 +28,9 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
 ![alt text](https://github.com/DasithEdirisinghe/glb2usdz/blob/11a23816cad5be481677774e478c261dcf06623b/img/awsarchi.jpg?raw=true)
 
 
+   * API Gateway - You can build an API to upload relevant glb files to S3 and send an message to SQS  
 
-   * API Gateway -> SQS -> Lambda -> (s3,dynamodb,EFS)
-
-   * API gateway is used to send a message to SQS (This can be done using an update API)
-
-   * Sample SQS message format:
+   * SQS - When SQS received a message lambda function will be invoked. Following message body is used when sending from the API gateway.
 
 ```javascript
     {
@@ -44,9 +45,12 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
       }
 ```
 
-* SQS will trigger the lambda function
+* Lambda handler will do the convertion and upload it in to the S3 and update the dynamoDB entry.
 
-* Configure and setup the AWS resources according to the above architecture
+* Converted file initially will be saved in EFS. Then the uploading and updating will take place.
+
+* AWS Endpoints have used to communicate with S3 and dynamoDB in a more secure manner. (No use of internet)
+
 
 ## Using <glb2usdz>
 
