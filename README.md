@@ -106,7 +106,7 @@ sudo docker push xxxxxxxxxxx.dkr.REGION.amazonaws.com/ECR_REPO:tag
 
 Thanks to the following people who have contributed to this project:
 
-* [@DasithEdirisinghe](https://github.com/DasithEdirisinghe) 📖
+* [@DasithEdirisinghe](https://github.com/DasithEdirisinghe) 
 
 ## Contact
 
