@@ -43,7 +43,7 @@ glTF is a transmission format for 3D assets that is well suited to the web and m
       }
 ```
 
-* Lambda handler will do the convertion and upload it in to the S3 and update the dynamoDB entry.
+* Lambda handler will do the conversion and upload it in to the S3 and update the dynamoDB entry.
 
 * Converted file initially will be saved in EFS. Then the uploading and updating will take place.
 
@@ -87,16 +87,16 @@ sudo apt-get install -y \
 
 npm install
 
-sudo docker login --username AWS --password $(aws ecr get-login-password --region REGION) xxxxxxxxxxx.dkr.ecr.REGION.amazonaws.com
+sudo docker login --username AWS --password $(aws ecr get-login-password --region REGION) AWS_ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com
 
 sudo docker build -t ECR_REPO:tag .
 
-sudo docker tag ECR_REPO:tag xxxxxxxxxxx.dkr.ecr.REGION.amazonaws.com/ECR_REPO:tag
+sudo docker tag ECR_REPO:tag AWS_ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/ECR_REPO:tag
 
-sudo docker push xxxxxxxxxxx.dkr.REGION.amazonaws.com/ECR_REPO:tag
+sudo docker push AWS_ACCOUNT_ID.dkr.REGION.amazonaws.com/ECR_REPO:tag
 ```
 
-* Make sure to change REGION, ECR_REPO as well as the xxxxxxxxxx 
+* Make sure to change REGION, ECR_REPO as well as the AWS_ACCOUNT_ID 
 
 * Then Create a Lambda function using container image
 * Deploy the Docker Image you pushed into the ECR_REPO, to the Lambda function
